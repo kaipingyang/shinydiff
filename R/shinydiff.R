@@ -25,6 +25,12 @@ shinydiffOutput <- function(outputId, width = '100%', height = '400px') {
   htmlwidgets::shinyWidgetOutput(outputId, 'shinydiff', width, height, package = 'shinydiff')
 }
 
+#' Render shinydiff widget
+#'
+#' @param expr An expression that generates a shinydiff widget.
+#' @param env The environment in which to evaluate expr. Defaults to parent.frame().
+#' @param quoted Logical, whether expr is a quoted expression (default FALSE).
+#' @return A Shiny render function for use in server logic.
 #' @export
 renderShinydiff <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) }
@@ -45,7 +51,7 @@ shinydiffModuleUI <- function(id) {
 #' @param text2 Reactive for second text
 #' @export
 shinydiffModuleServer <- function(id, text1, text2) {
-  moduleServer(id, function(input, output, session) {
+  shiny::moduleServer(id, function(input, output, session) {
     output$diff_ui <- shiny::renderUI({
       shinydiffOutput(session$ns('diff'))
     })
