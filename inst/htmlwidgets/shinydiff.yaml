@@ -1,0 +1,6 @@
+name: shinydiff
+version: 1.0
+src: htmlwidgets
+script: shinydiff.js
+stylesheet: 
+

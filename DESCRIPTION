@@ -1,0 +1,12 @@
+Package: shinydiff
+Type: Package
+Title: Shiny Diff Widget (htmlwidgets wrapper for JavaScript diff)
+Version: 0.1.0
+Authors@R: person("YourName", "YourSurname", email = "your@email.com", role = c("aut", "cre"))
+Description: An R htmlwidget and Shiny module for visualizing text differences using the JavaScript 'diff' library.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports: htmlwidgets, shiny
+Suggests: testthat, knitr, rmarkdown
+RoxygenNote: 7.2.3
