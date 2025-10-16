@@ -4,13 +4,41 @@ An R htmlwidget and Shiny module for visualizing text differences using the Java
 
 ## Installation
 
-Clone this repo and use `devtools::install()` or `remotes::install_local()`.
+You can install the development version of shinydiff from GitHub with:
+
+```r
+remotes::install_github("kaipingyang/shinydiff")
+```
+
+Or clone this repo and use `devtools::install()` or `remotes::install_local()`.
+
 
 ## Example
 
 ```r
 library(shinydiff)
 shinydiff("Hello world!", "Hello R world!")
+```
+
+## Shiny UI Example
+
+You can use `shinydiffOutput` directly in your Shiny UI:
+
+```r
+library(shiny)
+library(shinydiff)
+
+ui <- fluidPage(
+  shinydiffOutput("diff1")
+)
+
+server <- function(input, output, session) {
+  output$diff1 <- renderShinydiff({
+    shinydiff("Hello world!", "Hello R world!")
+  })
+}
+
+shinyApp(ui, server)
 ```
 
 ## Shiny Module Example

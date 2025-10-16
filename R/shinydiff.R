@@ -2,14 +2,15 @@
 #'
 #' @param text1 First text string
 #' @param text2 Second text string
+#' @param diffType Type of diff: "chars", "words", or "lines"
 #' @param width Widget width
 #' @param height Widget height
 #' @param elementId Widget element id
 #' @export
-shinydiff <- function(text1, text2, width = NULL, height = NULL, elementId = NULL) {
+shinydiff <- function(text1, text2, diffType = "words", width = NULL, height = NULL, elementId = NULL) {
   htmlwidgets::createWidget(
     name = 'shinydiff',
-    x = list(text1 = text1, text2 = text2),
+    x = list(text1 = text1, text2 = text2, diffType = diffType),
     width = width,
     height = height,
     package = 'shinydiff',
@@ -59,4 +60,35 @@ shinydiffModuleServer <- function(id, text1, text2) {
       shinydiff(text1(), text2())
     })
   })
+}
+
+#' Get the diff result from a shinydiff widget
+#'
+#' @param outputId The outputId used in shinydiffOutput.
+#' @param session The shiny session (defaults to current reactive domain).
+#' @param as (optional) "data.frame" (default) or "list" for return type.
+#' @return A data.frame or list of diff segments, or NULL if not available.
+#' @export
+get_diff <- function(outputId, session = NULL, as = c("data.frame", "list")) {
+  as <- match.arg(as)
+  if (is.null(session)) {
+    if (requireNamespace("shiny", quietly = TRUE)) {
+      session <- shiny::getDefaultReactiveDomain()
+    }
+    if (is.null(session)) return(NULL)
+  }
+  if (!is.character(outputId) || length(outputId) != 1) {
+    stop("`outputId` must be a single character string")
+  }
+  input_name <- paste0(outputId, "_diff")
+  diff_json <- session$input[[input_name]]
+  # print(diff_json)
+  # if (is.null(diff_json) || !nzchar(diff_json)) return(NULL)
+  if (is.null(diff_json) || !(is.character(diff_json) && length(diff_json) == 1 && nzchar(diff_json))) return(NULL)
+  diff <- jsonlite::fromJSON(diff_json)
+  if (as == "data.frame") {
+    as.data.frame(diff)
+  } else {
+    diff
+  }
 }

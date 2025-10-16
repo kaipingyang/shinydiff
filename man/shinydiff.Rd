@@ -4,12 +4,21 @@
 \alias{shinydiff}
 \title{shinydiff htmlwidget}
 \usage{
-shinydiff(text1, text2, width = NULL, height = NULL, elementId = NULL)
+shinydiff(
+  text1,
+  text2,
+  diffType = "words",
+  width = NULL,
+  height = NULL,
+  elementId = NULL
+)
 }
 \arguments{
 \item{text1}{First text string}
 
 \item{text2}{Second text string}
+
+\item{diffType}{Type of diff: "chars", "words", or "lines"}
 
 \item{width}{Widget width}
 
