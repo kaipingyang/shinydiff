@@ -2,12 +2,15 @@
 #'
 #' @param text1 First text string
 #' @param text2 Second text string
-#' @param diffType Type of diff: "chars", "words", or "lines"
+#' @param diffType Type of diff: "chars", "words", "lines", "sentences", "trimmedlines", or "css"
 #' @param width Widget width
 #' @param height Widget height
 #' @param elementId Widget element id
 #' @export
-shinydiff <- function(text1, text2, diffType = "words", width = NULL, height = NULL, elementId = NULL) {
+shinydiff <- function(text1, text2, 
+                      diffType = c("words", "chars", "lines", "sentences", "trimmedlines", "css"),
+                      width = NULL, height = NULL, elementId = NULL) {
+  diffType <- match.arg(diffType)
   htmlwidgets::createWidget(
     name = 'shinydiff',
     x = list(text1 = text1, text2 = text2, diffType = diffType),

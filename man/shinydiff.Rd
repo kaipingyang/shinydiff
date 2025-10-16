@@ -7,7 +7,7 @@
 shinydiff(
   text1,
   text2,
-  diffType = "words",
+  diffType = c("words", "chars", "lines", "sentences", "trimmedlines", "css"),
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -18,7 +18,7 @@ shinydiff(
 
 \item{text2}{Second text string}
 
-\item{diffType}{Type of diff: "chars", "words", or "lines"}
+\item{diffType}{Type of diff: "chars", "words", "lines", "sentences", "trimmedlines", or "css"}
 
 \item{width}{Widget width}
 

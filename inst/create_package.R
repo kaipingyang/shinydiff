@@ -16,7 +16,7 @@ devtools::check()
 
 devtools::load_all()
 
-devtools::install()
+# devtools::install()
 
 library(shiny)
 library(shinydiff)
@@ -24,7 +24,7 @@ text1 <- "Hello world!Hello world!Hello world!Hello world!Hello world!Hello worl
 text2 <- "Hello R world!Hello world!Hello world!Hello world!Hello world!"
 
 ui <- fluidPage(
-  selectInput("diff_type", "Diff Type", choices = c("words", "chars", "lines"), selected = "lines"),
+  selectInput("diff_type", "Diff Type", choices = c("words", "chars", "lines","sentences","trimmedlines","css"), selected = "lines"),
   shinydiffOutput("diff1", width = "50%"),
   tableOutput("diff1_content")
 )

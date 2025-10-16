@@ -1,6 +1,6 @@
 # shinydiff
 
-An R htmlwidget and Shiny module for visualizing text differences using the JavaScript 'diff' library.
+An R htmlwidget and Shiny module for visualizing text differences using the JavaScript [diff](https://github.com/kpdecker/jsdiff) library.
 
 ## Installation
 
@@ -12,6 +12,15 @@ remotes::install_github("kaipingyang/shinydiff")
 
 Or clone this repo and use `devtools::install()` or `remotes::install_local()`.
 
+
+## diffType Choices
+The diffType argument controls how the difference is computed:
+- "words": Compare by word.
+- "chars": Compare by character.
+- "lines": Compare by line.
+- "sentences": Compare by sentence.
+- "trimmedlines": Compare by line, ignoring leading and trailing whitespace.
+- "css": Compare using CSS syntax rules.
 
 ## Example
 
@@ -50,7 +59,12 @@ text1 <- "Hello world!Hello world!Hello world!Hello world!Hello world!Hello worl
 text2 <- "Hello R world!Hello world!Hello world!Hello world!Hello world!"
 
 ui <- fluidPage(
-  selectInput("diff_type", "Diff Type", choices = c("words", "chars", "lines"), selected = "words"),
+  selectInput(
+    "diff_type", 
+    "Diff Type", 
+    choices = c("words", "chars", "lines", "sentences", "trimmedlines", "css"), 
+    selected = "words"
+  ),
   shinydiffOutput("diff1", width = "100%"),
   tableOutput("diff1_content")
 )
