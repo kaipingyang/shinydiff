@@ -27,7 +27,15 @@ HTMLWidgets.widget({
         var color = part.added ? 'green' : part.removed ? 'red' : 'grey';
         var span = document.createElement('span');
         span.style.color = color;
-        span.appendChild(document.createTextNode(part.value));
+        // span.appendChild(document.createTextNode(part.value));
+        if (part.removed) {
+          // 删除内容加删除线
+          var del = document.createElement('del');
+          del.appendChild(document.createTextNode(part.value));
+          span.appendChild(del);
+        } else {
+          span.appendChild(document.createTextNode(part.value));
+        }
         fragment.appendChild(span);
       });
       // Create a container with adaptive height and scroll
