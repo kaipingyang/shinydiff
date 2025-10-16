@@ -41,6 +41,35 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
+## get_diff Function
+
+```r
+library(shiny)
+library(shinydiff)
+text1 <- "Hello world!Hello world!Hello world!Hello world!Hello world!Hello world!"
+text2 <- "Hello R world!Hello world!Hello world!Hello world!Hello world!"
+
+ui <- fluidPage(
+  selectInput("diff_type", "Diff Type", choices = c("words", "chars", "lines"), selected = "words"),
+  shinydiffOutput("diff1", width = "100%"),
+  tableOutput("diff1_content")
+)
+
+server <- function(input, output, session) {
+
+  output$diff1 <- renderShinydiff({
+    shinydiff(text1, text2, diffType = input$diff_type)
+  })
+
+  output$diff1_content <- renderTable({
+    req(input$diff1_diff)
+    get_diff("diff1")
+  })
+}
+
+shinyApp(ui, server)
+```
+
 ## Shiny Module Example
 
 ```r

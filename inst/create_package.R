@@ -25,7 +25,8 @@ text2 <- "Hello R world!Hello world!Hello world!Hello world!Hello world!"
 
 ui <- fluidPage(
   selectInput("diff_type", "Diff Type", choices = c("words", "chars", "lines"), selected = "lines"),
-  shinydiffOutput("diff1", width = "50%")
+  shinydiffOutput("diff1", width = "50%"),
+  tableOutput("diff1_content")
 )
 
 server <- function(input, output, session) {
@@ -41,6 +42,9 @@ server <- function(input, output, session) {
     # print(input$diff1_diff)
     input_diff1_diff <<- input$diff1_diff
     input_diff1_diff2 <<-get_diff("diff1")
+    output$diff1_content <- renderTable({
+      get_diff("diff1")
+    })
   })
 }
 
